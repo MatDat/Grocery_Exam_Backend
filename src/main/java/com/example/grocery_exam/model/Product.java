@@ -17,9 +17,16 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-    private int id;
+    private int productId;
+
+    @Column(name = "product_name", nullable = false)
     private String name;
+
+    @Column(name = "product_price", nullable = false)
     private double price;
+
+    @Column(name = "product_weight", nullable = false)
     private double weight;
+
 
 }
