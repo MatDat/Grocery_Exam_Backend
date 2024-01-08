@@ -35,4 +35,9 @@ public class ProductController {
     public ResponseEntity<Product> findProductByName(@PathVariable("name") String name){
         return productService.findByName(name);
     }
+
+    @PutMapping("/editProduct")
+    public ResponseEntity<Product> editProduct(@RequestBody Product product) {
+        return productService.editProduct(product);
+    }
 }

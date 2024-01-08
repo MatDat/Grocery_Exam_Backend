@@ -21,7 +21,7 @@ public class ProductService {
         return ResponseEntity.ok(product);
     }
 
-    public ResponseEntity<List<Product>> getAllProducts(){
+    public ResponseEntity<List<Product>> getAllProducts() {
         return ResponseEntity.ok(productRepo.findAll());
     }
 
@@ -32,6 +32,25 @@ public class ProductService {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public ResponseEntity<Product> editProduct(Product product) {
+        Optional<Product> oldProduct = productRepo.findById(product.getProductId());
+
+        if (oldProduct.isEmpty()) {
+            return ResponseEntity.notFound().build();
+
+        }
+        Product productToUpdate = oldProduct.get();
+
+        productToUpdate.setName(product.getName());
+        productToUpdate.setPrice(product.getPrice());
+        productToUpdate.setWeight(product.getWeight());
+
+//        Product updatedProduct = productRepo.save(productToUpdate);
+
+        return ResponseEntity.ok(productRepo.save(productToUpdate));
+
     }
 
 }
