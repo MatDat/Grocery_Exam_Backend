@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -29,4 +30,9 @@ public class Delivery {
 
     @Column(name = "destination", nullable = false)
     private String destination;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_order", nullable = false)
+    private Set<ProductOrder> productOrderSet;
+
 }
