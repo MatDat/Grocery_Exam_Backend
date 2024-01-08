@@ -4,9 +4,9 @@ import com.example.grocery_exam.model.Product;
 import com.example.grocery_exam.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ProductController {
@@ -24,5 +24,15 @@ public class ProductController {
     @PostMapping("/addProduct")
     public ResponseEntity<Product> addProduct(@RequestBody Product product) {
         return productService.saveProduct(product);
+    }
+
+    @GetMapping("/getAllProducts")
+    public ResponseEntity<List<Product>> getProducts(){
+        return productService.getAllProducts();
+    }
+
+    @GetMapping("/findProductByName/{name}")
+    public ResponseEntity<Product> findProductByName(@PathVariable("name") String name){
+        return productService.findByName(name);
     }
 }
