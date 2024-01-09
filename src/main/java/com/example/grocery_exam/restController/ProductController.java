@@ -3,6 +3,7 @@ package com.example.grocery_exam.restController;
 import com.example.grocery_exam.model.Product;
 import com.example.grocery_exam.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,5 +40,10 @@ public class ProductController {
     @PutMapping("/editProduct")
     public ResponseEntity<Product> editProduct(@RequestBody Product product) {
         return productService.editProduct(product);
+    }
+
+    @DeleteMapping("/deleteProduct/{name}")
+    public ResponseEntity<String> deleteProduct(@PathVariable("name") String name){
+        return productService.deleteProductByName(name);
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +51,14 @@ public class ProductService {
 //        Product updatedProduct = productRepo.save(productToUpdate);
 
         return ResponseEntity.ok(productRepo.save(productToUpdate));
-
     }
 
+    public ResponseEntity<String> deleteProductByName(String name) {
+        Optional<Product> productToDelete = Optional.ofNullable(productRepo.findByName(name));
+        if (productToDelete.isPresent()) {
+            productRepo.delete(productToDelete.get());
+            return ResponseEntity.ok("Product '" + name + "' deleted successfully");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product '" + name + "' not found");
+    }
 }
